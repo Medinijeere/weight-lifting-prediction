@@ -1,5 +1,5 @@
-#Weight Lifting Exercise Prediction Project
-##Overview
+**Weight Lifting Exercise Prediction Project**
+*Overview*
 
 This project aims to predict the manner in which participants performed weight lifting exercises using data collected from accelerometers on the belt, forearm, arm, and dumbbell. The main goal is to predict the classe variable in the training dataset, representing different types of exercise execution.
 
@@ -15,7 +15,7 @@ Weight_Lifting_Exercise_Prediction.pdf – PDF version of the report (optional).
 
 README.md – This file.
 
-##Data
+*Data*
 
 Training data: pml-training.csv
 
@@ -23,13 +23,13 @@ Test data: pml-testing.csv
 
 The datasets were collected from wearable accelerometers during barbell lifts.
 
-##Analysis
+*Analysis*
 
 Data Cleaning: Removal of near-zero variance predictors and columns with missing values.
 
 Exploratory Data Analysis: Summary statistics and plots to understand the features.
 
-##Modeling:
+*Modeling:*
 
 Random Forest was used to predict the classe variable.
 
@@ -37,7 +37,7 @@ Random Forest was used to predict the classe variable.
 
 Prediction: The model was applied to 20 test cases to generate predictions.
 
-##How to Reproduce
+*How to Reproduce*
 
 Download all files in this repository.
 
@@ -47,6 +47,6 @@ Knit the R Markdown file to HTML or PDF.
 
 Ensure required packages are installed: caret, randomForest, ggplot2.
 
-###Author
+*Author*
 
 Medini Jeere
