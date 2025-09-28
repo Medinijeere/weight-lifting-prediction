@@ -1,0 +1,64 @@
+---
+title: "Weight Lifting Exercise Prediction"
+author: "Medini Jeere"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r, message=FALSE, warning=FALSE}
+# -------------------------
+# Load Libraries and Data
+# -------------------------
+library(caret)
+library(randomForest)
+library(dplyr)
+
+train_url <- "https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv"
+test_url  <- "https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv"
+
+training <- read.csv(train_url, na.strings=c("NA","#DIV/0!",""))
+testing  <- read.csv(test_url, na.strings=c("NA","#DIV/0!",""))
+
+# -------------------------
+# Data Cleaning
+# -------------------------
+training <- training[, colSums(is.na(training)) == 0]
+testing  <- testing[, colSums(is.na(testing)) == 0]
+
+training <- training[, -(1:7)]
+testing  <- testing[, -(1:7)]
+
+training$classe <- factor(training$classe)
+
+# -------------------------
+# Split Training and Validation Sets
+# -------------------------
+set.seed(123)
+inTrain <- createDataPartition(training$classe, p=0.7, list=FALSE)
+trainData <- training[inTrain, ]
+validData <- training[-inTrain, ]
+
+# -------------------------
+# Train Random Forest Model
+# -------------------------
+set.seed(123)
+ctrl <- trainControl(method="cv", number=5)
+rfModel <- train(classe ~ ., data=trainData, method="rf", trControl=ctrl)
+
+print(rfModel)
+
+# -------------------------
+# Validate Model
+# -------------------------
+pred_rf <- predict(rfModel, validData)
+confMat <- confusionMatrix(pred_rf, validData$classe)
+print(confMat)
+
+# -------------------------
+# Predict on Test Data
+# -------------------------
+pred_test <- predict(rfModel, testing)
+pred_test
